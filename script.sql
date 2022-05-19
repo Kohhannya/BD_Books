@@ -1,5 +1,9 @@
+
+--Инициализация--
+
 DROP SCHEMA IF EXISTS workDB CASCADE;
 CREATE SCHEMA workDB;
+SET SEARCH_PATH = workDB;
 
 DROP TABLE IF EXISTS workDB.AUTHORS CASCADE;
 CREATE TABLE workDB.AUTHORS (
@@ -76,3 +80,17 @@ CREATE TABLE workDB.PAIR_H_S (
     FOREIGN KEY (house_id) REFERENCES workDB.PUBLISHING_HOUSES (house_id),
     FOREIGN KEY (shop_id) REFERENCES workDB.SHOPS (shop_id)
 );
+
+--Заполнение--
+
+COPY workDB.AUTHORS FROM '/var/lib/postgresql/data/bd/AUTHORS.csv' WITH (FORMAT csv);
+COPY workDB.WORKS FROM '/var/lib/postgresql/data/bd/WORKS.csv' WITH (FORMAT csv);
+COPY workDB.SHOPS FROM '/var/lib/postgresql/data/bd/SHOPS.csv' WITH (FORMAT csv);
+COPY workDB.PUBLISHING_HOUSES FROM '/var/lib/postgresql/data/bd/PUBLISHING_HOUSES.csv' WITH (FORMAT csv);
+COPY workDB.BOOKS FROM '/var/lib/postgresql/data/bd/BOOKS.csv' WITH (FORMAT csv);
+
+-- SELECT * FROM workDB.AUTHORS limit 5;
+-- SELECT * FROM workDB.WORKS limit 5;
+-- SELECT * FROM workDB.SHOPS limit 5;
+-- SELECT * FROM workDB.PUBLISHING_HOUSES limit 5;
+-- SELECT * FROM workDB.BOOKS limit 5;
